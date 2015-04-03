@@ -185,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				4D1120191ACD940300A3EAF2 /* SDWebImage */,
-				4D8389111ACBC59600193BEE /* View */,
+				4D8389111ACBC59600193BEE /* WaterflowView */,
 				4D8389101ACBC58C00193BEE /* Model */,
 				4D8388EC1ACBC57000193BEE /* AppDelegate.h */,
 				4D8388ED1ACBC57000193BEE /* AppDelegate.m */,
@@ -237,7 +237,7 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		4D8389111ACBC59600193BEE /* View */ = {
+		4D8389111ACBC59600193BEE /* WaterflowView */ = {
 			isa = PBXGroup;
 			children = (
 				4D8389151ACBC8AC00193BEE /* YKWaterflowView.h */,
@@ -245,7 +245,7 @@
 				4D8389181ACBC97700193BEE /* YKWaterflowViewCell.h */,
 				4D8389191ACBC97700193BEE /* YKWaterflowViewCell.m */,
 			);
-			name = View;
+			name = WaterflowView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

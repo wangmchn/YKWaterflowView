@@ -53,13 +53,21 @@
             }
         }
     }
+    NSLog(@"%ld",self.subviews.count);
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
     [self reloadData];
 }
 #pragma mark - Private Methodes
 - (BOOL)isInScreen:(CGRect)frame{
-    return YES;
+    CGFloat height = frame.size.height;
+    CGFloat y = frame.origin.y;
+    CGFloat contentOffsetY = self.contentOffset.y;
+    CGFloat screenH = self.frame.size.height;
+    if ((y+height-contentOffsetY) > 0 && (y-contentOffsetY-screenH) < 0) {
+        return YES;
+    }
+    return NO;
 }
 // 向数据源获取列数
 - (NSUInteger)getNumberOfColumnsFromDataSource{
@@ -81,6 +89,24 @@
         return [self.delegate waterflowView:self marginForType:type];
     }else{
         return YKDefaultMargin;
+    }
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    if ([self.delegate respondsToSelector:@selector(waterflowView:didSelectedItemAtIndex:)]) {
+        // 获取触摸点
+        UITouch *touch = [touches anyObject];
+        CGPoint point = [touch locationInView:self];
+        // 判断触摸点在那个cell的frame内
+        __block NSNumber *index = nil;
+        [self.displayCells enumerateKeysAndObjectsUsingBlock:^(id key, YKWaterflowViewCell *cell, BOOL *stop) {
+            if (CGRectContainsPoint(cell.frame, point)) {
+                index = key;
+                *stop = YES;
+            }
+        }];
+        if (index) {
+            return [self.delegate waterflowView:self didSelectedItemAtIndex:index.integerValue];
+        }
     }
 }
 #pragma mark - Public Methods
@@ -146,23 +172,5 @@
         }
     }];
     return reusableCell;
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if ([self.delegate respondsToSelector:@selector(waterflowView:didSelectedItemAtIndex:)]) {
-        // 获取触摸点
-        UITouch *touch = [touches anyObject];
-        CGPoint point = [touch locationInView:self];
-        // 判断触摸点在那个cell的frame内
-        __block NSNumber *index = nil;
-        [self.displayCells enumerateKeysAndObjectsUsingBlock:^(id key, YKWaterflowViewCell *cell, BOOL *stop) {
-            if (CGRectContainsPoint(cell.frame, point)) {
-                index = key;
-                *stop = YES;
-            }
-        }];
-        if (index) {
-            return [self.delegate waterflowView:self didSelectedItemAtIndex:index.integerValue];
-        }
-    }
 }
 @end
