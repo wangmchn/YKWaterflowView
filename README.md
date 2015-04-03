@@ -2,7 +2,7 @@
 ## Description
     简单实现了一下瀑布流，使用方式和UITableview类似
 ### import
-将``YKWaterflowView``和``YKWaterflowViewCell``拖入工程
+将``YKWaterflowView``和``YKWaterflowViewCell``拖入工程<br>
 实现对应的数据源方法和代理方法，实现方法与tableview相似，具体如下：
 ```objective-c
 // 数据源方法
