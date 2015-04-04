@@ -48,7 +48,7 @@ typedef enum{
 - (NSUInteger)numberOfColumnsInWaterflowView:(YKWaterflowView *)waterflowView;
 @end
 // 代理
-@protocol YKWaterflowDelegate <NSObject>
+@protocol YKWaterflowDelegate <UIScrollViewDelegate>
 @optional
 /**
  *  cell的点击事件，在代理中实现
@@ -78,8 +78,8 @@ typedef enum{
 @end
 
 @interface YKWaterflowView : UIScrollView
-@property (nonatomic, weak) id delegate;
-@property (nonatomic, weak) id datasource;
+@property (nonatomic, weak) id<YKWaterflowDelegate> delegate;
+@property (nonatomic, weak) id<YKWaterflowDataSource> datasource;
 /**
  *  刷新数据，类似tableView
  */
